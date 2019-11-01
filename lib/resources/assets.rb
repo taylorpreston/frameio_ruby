@@ -1,5 +1,5 @@
 module Frameio
-  class Asset < APIResource
+  class Assets < APIResource
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param asset_id [String] The Frame.io project asset folder id
