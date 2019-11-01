@@ -41,9 +41,21 @@ module Frameio
     end
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
+    # @param asset_id [String] The Frame.io project asset folder id
+    def self.subtitles(frameio_token:, asset_id:)
+      response = request(:get, "#{self.resource_url(asset_id)}/subtitles", authorize_bearer_header(frameio_token))
+    end
+
+    # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param query_params [String] Query parameters object that will search for an asset.
     def self.search(frameio_token:, query_params:)
       response = request(:get, self.search_url(query_params), authorize_bearer_header(frameio_token))
+    end
+
+        # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
+    # @param asset_id [String] The Frame.io project asset folder id
+    def self.audio(frameio_token:, asset_id:)
+      response = request(:get, "#{self.resource_url(asset_id)}/audio", authorize_bearer_header(frameio_token))
     end
 
 
