@@ -45,7 +45,7 @@ module Frameio
     end
 
     def self.resource_url_with_team_id(team_id)
-        "#{BASE_URL}/teams/#{team_id}/projects"
-      end
+      "#{BASE_URL}/teams/#{team_id}/projects"
+    end
   end 
 end
