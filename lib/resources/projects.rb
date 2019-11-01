@@ -17,7 +17,7 @@ module Frameio
     # @param team_id [String] The Frame.io user's account ID
     # @param body [Object] The body of the request
     def self.create(frame_token:, team_id:, body:)
-      response = request(:get, self.resource_url_with_team_id(team_id), authorize_bearer_header(frame_token), body)
+      response = request(:post, self.resource_url_with_team_id(team_id), authorize_bearer_header(frame_token), body)
     end
 
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
