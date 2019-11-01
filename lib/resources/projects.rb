@@ -1,16 +1,23 @@
 module Frameio
-  class Project < APIResource
+  class Projects < APIResource
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param project_id [String] The requested project id
     # @param body [Object] The body of the request. An object with an email attribute.
-    def self.add_participant(frame_token:, project_id:, body:)
-      response = request(:post, self.resource_url(project_id), authorize_bearer_header(frame_token))
+    def self.add_collaborator(frame_token:, project_id:, body:)
+      response = request(:post, "#{self.resource_url(project_id)}/collaborators", authorize_bearer_header(frame_token), body)
     end
 
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param team_id [String] The Frame.io user's account ID
     def self.list(frame_token:, team_id:)
       response = request(:get, self.resource_url_with_team_id(team_id), authorize_bearer_header(frame_token))
+    end
+    
+    # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
+    # @param team_id [String] The Frame.io user's account ID
+    # @param body [Object] The body of the request
+    def self.create(frame_token:, team_id:, body:)
+      response = request(:get, self.resource_url_with_team_id(team_id), authorize_bearer_header(frame_token), body)
     end
 
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
