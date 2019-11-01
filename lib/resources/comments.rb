@@ -33,7 +33,7 @@ module Frameio
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param comment_id [String] The Frame.io user's account ID
     def self.update(frameio_token:, comment_id:, body:)
-      request(:put, "#{self.resource_url}/#{comment_id}/replies", authorize_bearer_header(frameio_token), body)
+      request(:put, "#{self.resource_url}/#{comment_id}", authorize_bearer_header(frameio_token), body)
     end
 
 

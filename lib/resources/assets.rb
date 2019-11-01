@@ -1,6 +1,5 @@
 module Frameio
   class Assets < APIResource
-
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param asset_id [String] The Frame.io project asset folder id
     # @param body[Object] This body of the request for adding a comment. 

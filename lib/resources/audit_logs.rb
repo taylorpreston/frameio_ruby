@@ -1,6 +1,5 @@
 module Frameio
-  class AuditLog < APIResource
-    
+  class AuditLogs < APIResource
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param account_id [String] Frame.io account id
     def self.list(frameio_token:, account_id:)

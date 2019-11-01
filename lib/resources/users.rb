@@ -1,8 +1,7 @@
 module Frameio
-  class Me < APIResource
-    
+  class Users < APIResource
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
-    def self.list(frameio_token:)
+    def self.find(frameio_token:)
       request(:get, "#{BASE_URL}/me", authorize_bearer_header(frameio_token))
     end
   end
