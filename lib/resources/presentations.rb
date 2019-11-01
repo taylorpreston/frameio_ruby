@@ -13,8 +13,7 @@ module Frameio
     end
 
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
-    # @param asset_id [String] The Frame.io project id.
-    def self.list(frameio_token:, asset_id:)
+    def self.list(frameio_token:)
       request(:get, self.request_url, authorize_bearer_header(frameio_token))
     end
 
