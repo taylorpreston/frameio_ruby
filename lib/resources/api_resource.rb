@@ -22,7 +22,7 @@ module Frameio
       end
     end
   
-    def self.request(method, uri_path, frameio_token, body = {})
+    def self.request(method, path, frameio_token, body = {})
       HTTParty.send(method, "#{BASE_URL}#{path}", authorize_bearer_header(frameio_token), body: body)
     end
 
