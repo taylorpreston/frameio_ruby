@@ -7,7 +7,7 @@ module Frameio
         grant_type: "authorization_code",
         redirect_uri: REDIRECT_URI,
       }
-      request(:post, self.resource_url, authorize_basic_auth_header, body)
+      token_request(:post, self.resource_url, authorize_basic_auth_header, body)
     end
     
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
@@ -16,7 +16,19 @@ module Frameio
         grant_type: "refresh_token",
         refresh_token: frameio_token.refresh_token
       }
-      request(:post, self.resource_url, authorize_basic_auth_header, body)
+      token_request(:post, self.resource_url, authorize_basic_auth_header, body)
+    end
+
+    def self.authorize_basic_auth_header
+      { Authorization: "Basic #{self.encoded_secret}" }
+    end
+  
+    def self.encoded_secret
+      Base64.strict_encode64("#{ENV['FRAMEIO_CLIENT_ID']}:#{ENV['FRAMEIO_CLIENT_SECRET']}")
+    end
+
+    def self.token_request(method, url, header, body = {})
+      HTTParty.send(method, url, header, body: body)
     end
 
     def self.resource_url

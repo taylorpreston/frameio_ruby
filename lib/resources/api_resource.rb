@@ -22,16 +22,8 @@ module Frameio
       end
     end
   
-    def self.authorize_basic_auth_header
-      { Authorization: "Basic #{self.encoded_secret}" }
-    end
-  
-    def self.encoded_secret
-      Base64.strict_encode64("#{ENV['FRAMEIO_CLIENT_ID']}:#{ENV['FRAMEIO_CLIENT_SECRET']}")
-    end
-
-    def self.request(method, url, headers, body = {})
-      HTTParty.send(method, url, :headers => headers, :body => body)
+    def self.request(method, path, frameio_token, body = {})
+      HTTParty.send(method, "#{BASE_URL}#{path}", authorize_bearer_header(frameio_token), body: body)
     end
 
     def self.to_query_string(query_values = {})
