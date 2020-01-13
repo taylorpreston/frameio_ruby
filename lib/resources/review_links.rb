@@ -3,14 +3,14 @@ module Frameio
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param project_id [String] the Frame.io project id.
     def self.list_by_project(frameio_token:, project_id:)
-      request(:get, "#{BASE_URL}/projects/#{project_id}/review_links", frameio_token)
+      request(:get, "/projects/#{project_id}/review_links", frameio_token)
     end
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param project_id [String] the Frame.io project id.
     # @param body [Object] the request body.
     def self.create(frameio_token:, project_id:, body:)
-      request(:post, "#{BASE_URL}/projects/#{project_id}/review_links", frameio_token, body:)
+      request(:post, "/projects/#{project_id}/review_links", frameio_token, body:)
     end
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
@@ -55,7 +55,7 @@ module Frameio
     end
 
     def self.resource_url
-      "#{BASE_URL}/review_links"
+      "/review_links"
     end 
   end 
 end

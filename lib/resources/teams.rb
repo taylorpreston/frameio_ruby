@@ -14,7 +14,7 @@ module Frameio
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
     # @param account_id [String] The Frame.io user's account ID
     def self.list_by_account_id(frameio_token:, account_id:)
-      request(:get, "#{BASE_URL}/accounts/#{account_id}/teams", frameio_token)
+      request(:get, "/accounts/#{account_id}/teams", frameio_token)
     end
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
@@ -31,7 +31,7 @@ module Frameio
     end
 
     def self.resource_url
-      "#{BASE_URL}/teams"
+      "/teams"
     end
   end 
 end

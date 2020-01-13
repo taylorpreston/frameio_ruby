@@ -27,7 +27,7 @@ module Frameio
     # @param comment_id [String] The Frame.io user's account ID
     # @param body [Object] The request body
     def self.create(frameio_token:, asset_id:, body:)
-      request(:post, "#{BASE_URL}/assets/#{asset_id}/comments", frameio_token, body)
+      request(:post, "/assets/#{asset_id}/comments", frameio_token, body)
     end
 
     # @param frameio_token [FrameioAuthToken] Auth token retrieved from Frame.io
@@ -44,7 +44,7 @@ module Frameio
     end
 
     def self.resource_url
-      "#{BASE_URL}/comments"
+      "/comments"
     end 
   end 
 end

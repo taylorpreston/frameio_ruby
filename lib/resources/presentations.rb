@@ -27,7 +27,7 @@ module Frameio
     # @param asset_id [String] The Frame.io asset id.
     # @param asset_id [String] The request body.
     def self.create(frameio_token:, asset_id:, body:)
-      request(:get, "#{BASE_URL}/asset/#{asset_id}/presentations", frameio_token, body)
+      request(:get, "/asset/#{asset_id}/presentations", frameio_token, body)
     end
 
     # @param frame_token [FrameioAuthToken] Auth token retrieved from Frame.io
@@ -38,7 +38,7 @@ module Frameio
     end
 
     def sef.request_url
-      "#{BASE_URL}/presnetations"
+      "/presnetations"
     end
   end
 end

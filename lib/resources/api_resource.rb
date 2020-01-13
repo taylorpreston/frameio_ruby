@@ -22,8 +22,8 @@ module Frameio
       end
     end
   
-    def self.request(method, url, frameio_token:, body = {})
-      HTTParty.send(method, url, authorize_bearer_header(frameio_token), body: body)
+    def self.request(method, uri_path, frameio_token, body = {})
+      HTTParty.send(method, "#{BASE_URL}#{path}", authorize_bearer_header(frameio_token), body: body)
     end
 
     def self.to_query_string(query_values = {})
