@@ -14,13 +14,12 @@ module Frameio
 
     # @param review_link_id [String] the Frame.io project id.
     # @param query_params [Object] an object that will be turned into a query string.
-    def find_review_link(review_link_id:, query_params: nil)
-      url = query_params ? uri_path("/review_links/#{review_link_id}?#{to_query_string(query_params)}"
-      request(:get, uri_path("/review_links/#{review_link_id}"))
+    def find_review_link(review_link_id:, params: {})
+      request(:get, uri_path("/review_links/#{review_link_id}", params: params))
     end
 
     # @param review_link_id [String] the Frame.io project id.
-    def find_review_link_items(review_link_id:, params: nil)
+    def find_review_link_items(review_link_id:, params: {})
       request(:get, uri_path("/review_links/#{review_link_id}/items", params: params))
     end
 

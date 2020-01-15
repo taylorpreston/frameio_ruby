@@ -1,5 +1,5 @@
 module Frameio
-  class Presentations < Resource
+  module Presentations
     
     # @param project_id [String] The Frame.io project id.
     def list_presnetations_by_project(project_id:)

@@ -1,10 +1,9 @@
 module Frameio
   module Projects
-   
     # @param project_id [String] The requested project id
     # @param body [Object] The body of the request. An object with an email attribute.
     def add_project_collaborator(project_id:, body:)
-      request(:post, uri_path(("/projects/#{project_id}/collaborators"), body)
+      request(:post, uri_path("/projects/#{project_id}/collaborators"), body)
     end
    
     # @param team_id [String] The Frame.io user's account ID

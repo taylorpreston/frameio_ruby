@@ -1,13 +1,14 @@
-require "resources/accounts"
-require "resources/app_installs"
-require "resources/assets"
-require "resources/audit_logs"
-require "resources/comments"
-require "resources/presentations"
-require "resources/projects"
-require "resources/review_links"
-require "resources/teams"
-require "resources/users"
+require "./resources/accounts"
+require "./resources/app_installs"
+require "./resources/assets"
+require "./resources/audit_logs"
+require "./resources/comments"
+require "./resources/presentations"
+require "./resources/projects"
+require "./resources/review_links"
+require "./resources/teams"
+require "./resources/users"
+require "mintest/autorun"
 
 module Frameio
   class Client
@@ -34,7 +35,7 @@ module Frameio
     end
     
     def headers
-      { Authorization: "Bearer #{token.access_token}" }
+      { Authorization: "Bearer #{@token.access_token}" }
     end
     
     def request(method, path, body = {})
@@ -65,5 +66,12 @@ module Frameio
     def handle_error(response)
       raise Frameio::RequestError, response
     end
+  end
+end
+
+class ClientTest < Minitest::Test
+  def uri_path_can_accept_args
+    client = Frameio::Client.new({ access_token: "blah" })
+    assert client.uri_path("/hey") == "https://api.frame.io/v2/hey"
   end
 end
