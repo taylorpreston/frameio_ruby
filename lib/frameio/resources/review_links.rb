@@ -3,13 +3,13 @@ module Frameio
    
     # @param project_id [String] the Frame.io project id.
     def list_review_links_by_project(project_id:)
-      request(:get, "/projects/#{project_id}/review_links")
+      request(:get, uri_path("/projects/#{project_id}/review_links"))
     end
 
     # @param project_id [String] the Frame.io project id.
     # @param body [Object] the request body.
     def create_review_link(project_id:, body:)
-      request(:post, "/projects/#{project_id}/review_links", body:)
+      request(:post, uri_path("/projects/#{project_id}/review_links"), body)
     end
 
     # @param review_link_id [String] the Frame.io project id.
@@ -30,7 +30,7 @@ module Frameio
 
     # @param review_link_id [String] the Frame.io project id.
     def update_review_link(review_link_id:, body:)
-      request(:put, uri_path("/review_links/#{review_link_id}"), body:)
+      request(:put, uri_path("/review_links/#{review_link_id}"), body)
     end
 
     # @param review_link_id [String] The Frame.io review link id.
