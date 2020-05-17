@@ -8,7 +8,6 @@ Gem::Specification.new do |s|
   s.name        = 'frameio_ruby'
   s.summary     = 'A small ruby gem to help with your Frameio integration'
   s.version     = '0.1.0'
-
-  s.add_runtime_dependency 'httparty', '~>0.17.0'
-  s.add_development_dependency 'rspec', '~>3.8.0'
+  s.metadata    = { "source_code_uri" => "https://github.com/taylorpreston/frameio_ruby" }
+  s.add_runtime_dependency 'httparty', '~>0.16.2'
 end  
