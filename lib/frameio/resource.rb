@@ -2,37 +2,32 @@ require "httparty"
 require "addressable/uri"
 
 module Frameio
-  class APIResource
-    BASE_URL = "https://api.frame.io/v2".freeze
-    REDIRECT_URI = ENV['FRAMEIO_REDIRECT_URI']
-    HEADERS = {
-      "Content-Type" => "application/x-www-form-urlencoded"
-    }.freeze
-
+  class Resource
     include HTTParty
+    base_uri 'https://api.frame.io/v2'
     debug_output $stdout
+    headers "Content-Type" => "application/x-www-form-urlencoded"
     format :json
-    headers HEADERS
 
-    def self.authorize_bearer_header(frame_token)
+    def authorize_bearer_header(frame_token)
       if frame_token.nil?
-        raise "Please provide a valid frame token!"
+        raise "You did not pass a frame.io authorization token."
       else
         { Authorization: "Bearer #{frame_token.access_token}" }
       end
     end
   
-    def self.request(method, path, frameio_token, body = {})
-      HTTParty.send(method, "#{BASE_URL}#{path}", authorize_bearer_header(frameio_token), body: body)
+    def request(method, path, frameio_token, body = {})
+      HTTParty.send(method, path, authorize_bearer_header(frameio_token), body: body)
     end
 
-    def self.to_query_string(query_values = {})
+    def to_query_string(query_values = {})
       uri = Addressable::URI.new
       uri.query_values = query_values
       uri.query
     end
 
-    def handle_response(response) 
+    def handle_response(response)
       response.success? ? response : handle_error(response)
     end
 
@@ -40,7 +35,6 @@ module Frameio
       if response.class == HTTParty::Response
         raise HTTParty::ResponseError, response
       end
-
       raise StandardError, "Frame - Unknown response error" 
     end
 
