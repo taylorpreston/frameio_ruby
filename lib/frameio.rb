@@ -4,7 +4,7 @@ require "uri"
 require "frameio/auth"
 require "frameio/client"
 require "frameio/configuration"
-module Frameio
+class Frameio
   # class RequestError < StandardError; end
   # Call this method to modify defaults in your initializers.
   #
@@ -14,6 +14,10 @@ module Frameio
   #     config.client_secret = "abc123"
   #   end
   #
+  def self.hello
+    "HELLO FROM FRAMEIO"
+  end 
+
   def self.configure
     yield(configuration) if block_given?
   end
