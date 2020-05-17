@@ -11,7 +11,7 @@ module Frameio
 
     def authorize_bearer_header(frame_token)
       if frame_token.nil?
-        raise "Please provide a valid frame token!"
+        raise "You did not pass a frame.io authorization token."
       else
         { Authorization: "Bearer #{frame_token.access_token}" }
       end
