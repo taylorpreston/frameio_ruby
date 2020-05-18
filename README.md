@@ -34,7 +34,12 @@ auth.create_auth_url # <-- this is the url the client will access to start the O
 
 token = auth.create_auth_token(auth_code: auth_code).parsed_response # <-- the code that is returned in the url params after a successful OAuth2 redirect
 
-client = Frameio::Client.new(token: token) #<-- pass the response token to a new client instance
+client = Frameio::Client.new(token: token["access_token"]) #<-- pass the response token access token to a new client instance
+
+##### OR IF YOU HAVE A DEVELOPER TOKEN
+
+client = Frameio::Client.new(token: "your_frameio_developer_token")
+
 response = client.get("/me") #<--- make your request!
 ```
 
@@ -60,7 +65,7 @@ end
 
 ```
 
-## Auth Methods
+## OAuth2 Methods
 
 ```ruby
 auth = Frameio::Auth.new #<-- create a new instance of teh auth class
@@ -78,11 +83,17 @@ token_to_store = auth.create_auth_token(auth_code: "code_from_frameio_redirect_u
 refreshed_token = auth.refresh_auth_token(token)
 ```
 
+## Developer Token
+
+```ruby
+client = Frameio::Client.new(token: "your_framio_developer_token") #<-- create a new instance of the frame.io client
+```
+
 ## Client Methods
 
 ```ruby
 # The token is the secret to accessing the resources so don't forget it :)
-client = Frameio::Client.new(token: frameio_auth_token) #<-- create a new instance of the frame.io client
+client = Frameio::Client.new(token: "frameio_auth_access_token") #<-- create a new instance of the frame.io client
 
 # get method does exactly what it says it does. It goes and gets information from an authenticated frame.io endpoint
 # the only parameter needed is the path to the resource you want to get.

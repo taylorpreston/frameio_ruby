@@ -46,12 +46,7 @@ module Frameio
     private
 
     def access_token
-      access_token =  @token[:token]&.access_token if @token.methods.include? :access_token
-      access_token = @token[:token][:access_token] if @token.class.to_s == "Hash"
-      return access_token
-      if access_token.empty?
-        raise "Please supply a valid frameio token with an access_token attribute or method"
-      end
+      @token
     end
 
     def base_url
