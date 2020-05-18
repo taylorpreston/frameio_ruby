@@ -36,6 +36,70 @@ client = Frameio::Client.new(token: token) #<-- pass the response token to a new
 response = client.get("/me") #<--- make your request!
 ```
 
+## HTTParty
+
+All the requests are wrapped in HTTParty response objects, and to access the response just call the `.parsed_response` method on the returned object.
+
+## Configuration
+
+### IMPORTANT!
+
+These values can be found on your frame.io developer account page.
+
+All 4 values are needed for the authentication process to work.
+
+```ruby
+Frameio.configure do |c|
+  c.client_id = "cool_client_od"
+  c.client_secret = "fun_secret"
+  c.auth_redirect_uri = "http://localhost:5000/frameio/callback"
+  c.scope = "offline account.read team.read project.read asset.read asset.create"
+end
+
+```
+
+## Auth Methods
+
+```ruby
+auth = Frameio::Auth.new #<-- create a new instance of teh auth class
+
+# create_auth_url uses the values provided by the configuration step to supply
+# you with a formatted auth url where the OAuth2 authentication step beings
+auth.create_auth_url(state: "any_state_wany")
+
+# create_auth_token takes an auth_code param that comes from completing the OAuth2 process
+# It makes a request to the auth endpoint of frame.io's api and returns you a valid auth token
+token_to_store = auth.create_auth_token(auth_code: "code_from_frameio_redirect_url")
+
+# refresh_auth_token takes an old auth token provided by frame.io and makes the request for
+# a new token. This method should be used after a token has expired.
+refreshed_token = auth.refresh_auth_token(token)
+```
+
+## Client Methods
+
+```ruby
+# The token is the secret to accessing the resources so don't forget it :)
+client = Frameio::Client.new(token: frameio_auth_token) #<-- create a new instance of the frame.io client
+
+# get method does exactly what it says it does. It goes and gets information from an authenticated frame.io endpoint
+# the only parameter needed is the path to the resource you want to get.
+client.get("/me")
+client.get("/account/#{account_id}/teams")
+
+# create method takes 2 params. The first being the endpoint you want to hit, and the second in the body.
+# NOTE: We use ruby keyword arguments!
+client.create("/assets/#{asset_id}/comments", body: { frameio: "Formatted Comment" })
+
+# update method takes 2 params. The first being the endpoint you want to hit, and the second in the body.
+client.update("/comments/#{comment_id}", body: { frameio: "Formatted Comment" })
+
+# delete method will delete a resource from Frame.io for you.
+client.delete("/comments/#{comment_id}")
+
+
+```
+
 ## Convenience Methods
 
 ```ruby

@@ -29,10 +29,11 @@ module Frameio
       request(body)
     end
 
-    def refresh_auth_token(frameio_token:)
+    def refresh_auth_token(token)
+      refresh_token = find_refresh_token(token)
       body = {
         grant_type: "refresh_token",
-        refresh_token: frameio_token.refresh_token
+        refresh_token: refresh_token
       }
       request(body)
     end
@@ -43,6 +44,15 @@ module Frameio
       client_id = Frameio.configuration.client_id
       client_secret = Frameio.configuration.client_secret
       Base64.strict_encode64("#{client_id}:#{client_secret}")
+    end
+
+    def find_refresh_token
+      refresh_token =  @token[:token]&.refresh_token if @token.methods.include? :refresh_token
+      refresh_token = @token[:token][:refresh_token] if @token.class.to_s == "Hash"
+      return refresh_token
+      if refresh_token.empty?
+        raise "Please supply a valid frameio token with an refresh_token attribute or method"
+      end
     end
 
     def request(body)
