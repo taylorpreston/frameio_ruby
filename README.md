@@ -2,6 +2,8 @@
 
 The Frameio Ruby SDK is a small useful client and OAuth2 library for integrating with [frameio.io](https://frame.io)
 
+This has been built on top of [HTTParty](https://github.com/jnunemaker/httparty)
+
 ## Installation
 
 Use bundler to install the Frameio Ruby SDK.
