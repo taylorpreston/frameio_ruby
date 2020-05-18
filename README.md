@@ -30,10 +30,25 @@ end
 auth = Frameio::Auth.new #<-- create a new instance of teh auth class
 auth.create_auth_url # <-- this is the url the client will access to start the OAuth2 flow
 
-token = auth.create_auth_token(auth_code: auth_code) # <-- the code that is returned in the url params after a successful OAuth2 redirect
+token = auth.create_auth_token(auth_code: auth_code).parsed_response # <-- the code that is returned in the url params after a successful OAuth2 redirect
 
 client = Frameio::Client.new(token: token) #<-- pass the response token to a new client instance
 response = client.get("/me") #<--- make your request!
+```
+
+## Convenience Methods
+
+```ruby
+
+client.to_query_string({ foo:bar }) #<-- turns object in to query strings! YAY!
+
+
+# The to_ostruct method will recursively turn any hash into an OpenStruct.
+# I like it, but they are your responses so do what you want to with them :)
+
+response = client.get("/me")
+client.to_ostruct(response.parsed_response)
+
 ```
 
 ## Contributing
